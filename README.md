@@ -26,6 +26,8 @@ For my Altair simulator, I want an "LED" to change from dull to bright red.
 ### Applying the material
 
 ```
+// Note: this works for a sphere primitive, but fails on other primitives e.g. capsule
+
 fileprivate func applyMaterial(_ led: Entity, _ stuff: SimpleMaterial) {
         var modelComponent = led.components[ModelComponent.self]!
         modelComponent.materials = [stuff]
