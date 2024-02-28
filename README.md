@@ -13,6 +13,8 @@ if let sphere = scene.findEntity(named: "Sphere") {
 }
 ```
 
+The Entity needs to have targeting and collision components set (either in code or in the Reality Editor) before this works.
+
 ## Applying material to a sphere primitive
 
 For my Altair 8800 simulator, I want an "LED" to change from dull to bright red.
@@ -38,6 +40,8 @@ applyMaterial(myEntity, led_on)
 ```
 
 ## Reacting to an Entity being tapped and dragged
+
+The Entity needs to have targeting and collision components set (either in code or in the Reality Editor) before this works.
 
 ```
 var body: some View {
