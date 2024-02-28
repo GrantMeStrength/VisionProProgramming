@@ -4,7 +4,7 @@ Some tips when programming for VisionOS
 
 ## Gaze highlighting
 
-To apply a HoverEffectComponent to an entity in RealityKit, you should first ensure that your entity is prepared to use components effectively. In a practical example from the Apple Developer Forums, adding a hover effect to a default sphere in a visionOS Volume project involves setting the HoverEffectComponent directly on the entity after it's been identified within the scene. This is done by using the components.set method on the entity, as shown in a simple code snippet:
+To make an Entity change appearance when the user looks at it, use the HoverEffectComponent. Adding a hover effect to a default sphere in a visionOS Volume project involves setting the HoverEffectComponent directly on the entity after it's been identified within the scene. This is done by using the components.set method on the entity, as shown:
 
 ```
 if let sphere = scene.findEntity(named: "Sphere") {
@@ -15,7 +15,7 @@ if let sphere = scene.findEntity(named: "Sphere") {
 
 ## Applying material to a sphere primitive
 
-For my Altair simulator, I want an "LED" to change from dull to bright red.
+For my Altair 8800 simulator, I want an "LED" to change from dull to bright red.
 
 ### Creating a simple material
 
@@ -36,3 +36,44 @@ fileprivate func applyMaterial(_ led: Entity, _ stuff: SimpleMaterial) {
 
 applyMaterial(myEntity, led_on)
 ```
+
+## Reacting to an Entity being tapped and dragged
+
+```
+var body: some View {
+        RealityView { content in
+            // Add the initial RealityKit content
+            if let scene = try? await Entity(named: "Scene", in: realityKitContentBundle) {
+                content.add(scene)
+
+                // Scene stuff
+
+            }
+        }
+    }
+
+      // This is "clicking" on an object.
+     .gesture(TapGesture().targetedToAnyEntity().onEnded { value in
+
+        if value == "MyEntityName" {
+            print("Tapped!")
+        }
+    })
+
+    // This dragging. Can be used with tapping too.
+    // This is the 'minimumDistance' version, there is a version without this requirement for immediately feedback
+     .gesture(DragGesture(minimumDistance: 20).targetedToAnyEntity().onChanged { value in
+           
+            let direction_is_down = (value.gestureValue.translation.height) > 0
+
+            if direction_is_down {
+                print("Entity dragged down after a little distance to make sure that's the intention")
+            }
+
+        }
+    })
+
+
+```
+
+                
