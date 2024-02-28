@@ -6,7 +6,7 @@ Some tips when programming for VisionOS
 
 To make an Entity change appearance when the user looks at it, use the HoverEffectComponent. Adding a hover effect to a default sphere in a visionOS Volume project involves setting the HoverEffectComponent directly on the entity after it's been identified within the scene. This is done by using the components.set method on the entity, as shown:
 
-```
+```Swift
 if let sphere = scene.findEntity(named: "Sphere") {
     sphere.components.set(HoverEffectComponent())
     content.add(sphere)
@@ -21,13 +21,13 @@ For my Altair 8800 simulator, I want an "LED" to change from dull to bright red.
 
 ### Creating a simple material
 
-```
+```Swift
 @State private var led_on =  SimpleMaterial(color: UIColor(red: 2.5, green: 0, blue: 0, alpha: 1), roughness: 0.0, isMetallic: false)
 ```
 
 ### Applying the material
 
-```
+```Swift
 // Note: this works for a sphere primitive, but fails on other primitives e.g. capsule
 
 fileprivate func applyMaterial(_ led: Entity, _ stuff: SimpleMaterial) {
@@ -43,7 +43,7 @@ applyMaterial(myEntity, led_on)
 
 The Entity needs to have targeting and collision components set (either in code or in the Reality Editor) before this works.
 
-```
+```Swift
 var body: some View {
         RealityView { content in
             // Add the initial RealityKit content
